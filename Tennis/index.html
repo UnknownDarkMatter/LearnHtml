@@ -1,0 +1,239 @@
+<html>
+<head>
+<script type="text/javascript" src="jquery-3.7.1.min.js" ></script>
+<style>
+    body{
+        margin: 0;
+        padding: 0;
+    }
+    .container{
+        width:100%;
+        height:100%;
+        display:flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .contenu{
+        display: flex;
+        flex-direction: column;
+        width:300px;
+        height:500px;
+        background-color: rgb(113, 216, 163);
+        border:3px solid brown;
+    }
+    .haut,.bas{
+        display: flex;
+        height: 100%;
+        width: 100%;  
+    }
+    .fillet{
+        height: 5px;
+        width:100%;
+        background-color:green;
+    }
+    .barre-haut,.barre-bas{
+        position:relative;
+        width:50px;
+        height: 5px;
+        background-color: yellow;
+        border:3px solid orange;
+        left:0px;
+    }
+    .bas{
+        display: flex;
+        align-items: flex-end;
+    }
+    .balle{
+        position: relative;
+        top:0px;
+        left:0px;
+        width:20px;
+        height:20px;
+        border-radius: 10px;
+        background-color: yellow;
+    }
+</style>
+</head>
+<body>
+    <div class="container">
+        <div class="contenu">
+            <div class="haut">
+                <div class="barre-haut"></div>
+            </div>
+            <div class="fillet"></div>
+            <div class="bas">
+                <div class="barre-bas"></div>
+            </div>
+        </div>
+        <div class="balle">
+
+        </div>
+    </div>
+    <script>
+        var vitesseBalle = 20;
+        var incrementBarreGaucheDroite = 20;
+        var leftBalleInitial = -160;
+        var topBalleInitial = 0;
+        var leftBalleIncrement = 0;
+        var topBalleIncrement = 0;
+        var sensBalleHorizontal = 'gauche';
+        var sensBalleVertical = 'bas';
+        var incrementBalleVerticalInitial = vitesseBalle;
+        var incrementBalleVertical = vitesseBalle;
+        var incrementBalleHorizontalInitial = vitesseBalle;
+        var incrementBalleHorizontal = vitesseBalle;
+        var leftBalleMin = -295;
+        var leftBalleMax = -22;
+        var topBalleMin = -230;
+        var topBalleMax = 230;
+        var largeurBarres = 50;
+     
+
+         $(document).ready(function(){
+            $('.balle').css('left', leftBalleInitial + 'px');
+            $('.balle').css('top', topBalleInitial + 'px');
+
+            $(document).keypress(function(event){
+                //alert(event.which);
+                switch(event.which){
+                    case 50:{//2
+                        deplaceBarreBas('gauche');
+                        break;
+                    }
+                    case 51:{//3
+                        deplaceBarreBas('droite');
+                        break;
+                    }
+                    case 119:{//w
+                        deplaceBarreHaut('gauche');
+                        break;
+                    }
+                    case 120:{//x
+                        deplaceBarreHaut('droite');
+                        break;
+                    }
+                    default:{
+                        break;
+                    }
+                }
+            });
+            
+            setTimeout(deplaceBalle, 100);
+        });
+        function deplaceBalle(){
+            //deplacement balle horizontal
+            var leftBalle = $('.balle').css('left');
+            leftBalle = leftBalle.replaceAll('px', '');
+            leftBalle = eval(leftBalle);
+            if(leftBalle<=leftBalleMin){
+                sensBalleHorizontal = 'droite';
+                incrementBalleHorizontal = Math.floor(Math.random() * incrementBalleHorizontalInitial)
+            } else if(leftBalle>=leftBalleMax){
+                sensBalleHorizontal = 'gauche';
+                incrementBalleHorizontal = Math.floor(Math.random() * incrementBalleHorizontalInitial)
+            }
+            if(sensBalleHorizontal == 'gauche'){
+                leftBalle -= incrementBalleHorizontal;
+            } else if(sensBalleHorizontal == 'droite'){
+                leftBalle += incrementBalleHorizontal;
+            }
+            $('.balle').css('left', leftBalle + 'px');
+
+
+            //deplacement balle vertical
+            var topBalle = $('.balle').css('top');
+            topBalle = topBalle.replaceAll('px', '');
+            topBalle = eval(topBalle);
+            if(topBalle<=topBalleMin){
+                sensBalleVertical = 'bas';
+                incrementBalleVertical = Math.floor(Math.random() * incrementBalleVerticalInitial);
+            } else if(topBalle>=topBalleMax){
+                sensBalleVertical = 'haut';
+                incrementBalleVertical = Math.floor(Math.random() * incrementBalleVerticalInitial);
+            }
+            
+            if(sensBalleVertical == 'haut'){
+                topBalle -= incrementBalleVertical;
+            } else if(sensBalleVertical == 'bas'){
+                topBalle += incrementBalleVertical;
+            }
+            $('.balle').css('top', topBalle + 'px');
+         
+            if(balleSorsDuBas(topBalle, leftBalle)){
+                alert('le joueur du bas a perdu');
+            } else if(balleSorsDuHaut(topBalle, leftBalle)){
+                alert('le joueur du haut a perdu');
+            } else{
+                setTimeout(deplaceBalle, 100);
+            }
+        }
+
+        function deplaceBarreBas(sens){
+            var left = $('.barre-bas').css('left');
+            left = left.replaceAll('px', '');
+            left = eval(left);
+            if(sens == 'gauche'){
+                left = left -incrementBarreGaucheDroite;
+                $('.barre-bas').css('left', left + 'px');
+            }
+            else if(sens == 'droite')
+            {
+                left += incrementBarreGaucheDroite;
+                $('.barre-bas').css('left', left + 'px');
+            }
+        }
+        function deplaceBarreHaut(sens){
+            var left = $('.barre-haut').css('left');
+            left = left.replaceAll('px', '');
+            left = eval(left);
+            if(sens == 'gauche'){
+                left -= incrementBarreGaucheDroite;
+                $('.barre-haut').css('left', left + 'px');
+            }
+            else
+            {
+                left += incrementBarreGaucheDroite;
+                $('.barre-haut').css('left', left + 'px');
+            }
+        }
+
+        function balleSorsDuBas(topBalle, leftBalle){
+            if(topBalle>=topBalleMax){
+                leftBalle = leftBalle - leftBalleMin;
+                
+                var leftBarre = $('.barre-bas').css('left');
+                leftBarre = leftBarre.replaceAll('px', '');
+                leftBarre = eval(leftBarre);
+
+                if(leftBalle < leftBarre || leftBalle>leftBarre +  largeurBarres){
+                    return true;
+                }
+          }
+            return false;
+        }
+        function balleSorsDuHaut(topBalle, leftBalle){
+            if(topBalle<=topBalleMin){
+                leftBalle = leftBalle - leftBalleMin;
+                
+                var leftBarre = $('.barre-haut').css('left');
+                leftBarre = leftBarre.replaceAll('px', '');
+                leftBarre = eval(leftBarre);
+
+                if(leftBalle < leftBarre || leftBalle>leftBarre +  largeurBarres){
+                    return true;
+                }
+            }
+            return false;
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
