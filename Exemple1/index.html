@@ -1,0 +1,91 @@
+<html>
+<head>
+<script type="text/javascript" src="jquery-3.7.1.min.js" ></script>
+<style>
+    body{
+        margin: 0;
+        padding: 0;
+    }
+    .container{
+        width:100%;
+        height:100%;
+        display:flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .contenu{
+        width:200px;
+        height:200px;
+        background-color: rgb(113, 118, 216);
+        border:3px solid rgba(113, 161, 216, 0.996);
+    }
+    .bille{
+        position: relative;
+        top:100px;
+        left:100px;
+        width:10px;
+        height:10px;
+        border-radius: 5px;
+        background-color: yellow;
+    }
+</style>
+</head>
+<body>
+    <div class="container">
+        <div class="contenu">
+            <div class="bille">
+
+            </div>
+        </div>
+    </div>
+    <script>
+        var leftBilleInitial = 0;
+        var topBilleInitial = 0;
+        var incrementLeft = 10;
+        var incrementTop = 10;
+
+        $(document).ready(function(){
+            leftBilleInitial = $('.bille').position().left;
+            topBilleInitial = $('.bille').position().top;
+            setTimeout(deplaceBille, 100);
+        });
+        function deplaceBille(){
+            var contenuWidth = 100;
+            var contenuHeight = 100;
+
+            var leftBille = $('.bille').position().left;
+            var topBille = $('.bille').position().top;
+            if(leftBille < leftBilleInitial - (contenuWidth / 2)){
+                incrementLeft = Math.floor(Math.random() * 10);
+            }
+            if(leftBille > leftBilleInitial + (contenuWidth / 2)){
+                incrementLeft = -Math.floor(Math.random() * 10);
+            }
+            leftBille = leftBille + incrementLeft;
+
+            if(topBille < topBilleInitial - (contenuHeight / 2)){
+                incrementTop = Math.floor(Math.random() * 10);
+            }
+            if(topBille > topBilleInitial + (contenuHeight / 2)){
+                incrementTop = -Math.floor(Math.random() * 10);
+            }
+            topBille = topBille + incrementTop;
+            
+            leftBille = 100 + leftBille - leftBilleInitial;
+            topBille = 100 + topBille - topBilleInitial;
+            $('.bille').css('left', leftBille);
+            $('.bille').css('top', topBille );
+            setTimeout(deplaceBille, 100);
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
