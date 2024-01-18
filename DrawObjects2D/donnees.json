@@ -1,0 +1,9 @@
+[
+    {
+        "type":"rectangle",
+        "hauteur":100,
+        "largeur":200,
+        "top":50,
+        "left":100
+    }
+]
