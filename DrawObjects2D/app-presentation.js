@@ -1,5 +1,10 @@
 
 //gestion du redimentionnement de la zone de dessin
+
+//pageY : google -> What is the difference between screenX/Y, clientX/Y and pageX/Y?
+
+
+
 var isMouseDownRedimensionGauche = false;
 var isMouseDownRedimensionDroite = false;
 var isMouseDownRedimensionHaut = false;
@@ -14,27 +19,41 @@ $(window).mousemove(function(event){
     if(isMouseDownRedimensionGauche){
         zoneDessinWidth = zoneDessinWidth + (zoneDessinLeft - event.clientX)*2;
         zoneDessinLeft = event.clientX;
-        $('.zone-dessin').width(zoneDessinWidth + 'px');
+        
+        if(event.pageX <= 5){
+            $('.container').width($('.container').width() + 100);
+        }
+
+        $('.zone-dessin').width(zoneDessinWidth);
     }
     else if(isMouseDownRedimensionDroite){
         zoneDessinWidth = zoneDessinWidth - (zoneDessinLeft - event.clientX)*2;
         zoneDessinLeft = event.clientX;
 
-        if(event.clientX >= $('.contenu').width() - 10){
-            zoneDessinWidth+=200;
+        if(event.pageX >= $('.container').width() - 5){
+            $('.container').width($('.container').width() + 100);
+            var left = $(document).outerWidth() - $(window).width();
+            $('body, html').scrollLeft(left);
         }
     
-        $('.zone-dessin').width(zoneDessinWidth + 'px');
+        $('.zone-dessin').width(zoneDessinWidth);
     }
     else if(isMouseDownRedimensionHaut){
         zoneDessinHeight = zoneDessinHeight + (zoneDessinTop - event.clientY)*2;
         zoneDessinTop = event.clientY;
-        $('.zone-dessin').height(zoneDessinHeight + 'px');
+ 
+        $('.zone-dessin').height(zoneDessinHeight);
     }
     else if(isMouseDownRedimensionBas){
         zoneDessinHeight = zoneDessinHeight - (zoneDessinTop - event.clientY)*2;
         zoneDessinTop = event.clientY;
-        $('.zone-dessin').height(zoneDessinHeight + 'px');
+
+        if(event.pageY >= $('.container').height() - 5){
+            $('.container').height($('.container').height() + 20);
+            window.scrollTo(0, document.body.scrollHeight);
+        }
+
+        $('.zone-dessin').height(zoneDessinHeight);
     }
 });
 $('.redimension-gauche').mousedown(function(event){
