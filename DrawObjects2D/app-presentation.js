@@ -72,3 +72,9 @@ $('.redimension-bas').mousedown(function(event){
     zoneDessinTop = event.clientY;
     isMouseDownRedimensionBas = true;
 });
+
+$('#outil-rectangle').click(function(){
+
+    //$(document)
+
+});

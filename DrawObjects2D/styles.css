@@ -1,0 +1,80 @@
+html,body{
+    margin: 0;
+    padding: 0;
+}
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+.contenu{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+
+}
+.zone-dessin{
+    display:flex;  
+    flex-direction: column;
+    border:solid 1px gray;
+    box-shadow: 10px 5px 5px gray;    
+    border-radius:5px;
+    width: 500px;
+    height: 300px;  
+}
+.redimension-gauche-droite-container{
+    display:flex;  
+    flex-direction: row;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%;
+}
+.redimension-gauche {
+    position: relative;
+    width: 3px;
+    height: 100%;
+    left: 0;
+    background-color: gray;
+    cursor: w-resize;
+}
+.redimension-droite {
+    position: relative;
+    width: 3px;
+    height: 100%;
+    right: 0;
+    background-color: gray;
+    cursor: w-resize;
+}
+.redimension-bas {
+    position: relative;
+    height: 3px;
+    width: 100%;
+    bottom: 0;
+    background-color: gray;
+    cursor:s-resize;
+}
+.redimension-haut {
+    position: relative;
+    height: 3px;
+    width: 100%;
+    top: 0;
+    background-color: gray;
+    cursor:s-resize;
+}
+.barre-outils{
+    display: flex;
+    flex-direction: row;
+}
+.outil{
+    cursor:pointer;
+}
+.outil:hover{
+    opacity: .5;
+    background-color: rgb(151, 204, 235);
+    border-radius: 10px;
+}
