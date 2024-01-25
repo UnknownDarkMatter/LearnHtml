@@ -78,3 +78,26 @@ html,body{
     background-color: rgb(151, 204, 235);
     border-radius: 10px;
 }
+.dessin-object:hover{
+    opacity: .5;
+}
+.dessin-object-ligne{
+    height:2px;
+}
+.dessin-object-ligne:hover{
+    height:10px;
+}
+.dessin-object .ligne-debut{
+    display: none;
+    background-color: lightsalmon;
+}
+.dessin-object .ligne-fin{
+    display: none;
+    background-color: lightsalmon;
+}
+.dessin-object:hover .ligne-debut{
+    display: inline-block;
+}
+.dessin-object:hover .ligne-fin {
+    display: inline-block;
+}
