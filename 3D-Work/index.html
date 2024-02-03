@@ -1,0 +1,133 @@
+<html>
+<head>
+<script type="text/javascript" src="jquery-3.7.1.min.js" ></script>
+<style>
+    body{
+        margin: 0;
+        padding: 0;
+    }
+
+    #parallelogram {
+        width: 150px;
+        height: 100px;
+        -webkit-transform: skew(20deg);
+        -moz-transform: skew(20deg);
+        -o-transform: skew(20deg);
+        background: red;
+    }
+
+    .arrow-right {
+        width: 0; 
+        height: 0; 
+        border-top: 60px solid transparent;
+        border-bottom: 60px solid transparent;
+        border-left: 60px solid green;
+
+        -webkit-transform: skew(-20deg);
+        -moz-transform: skew(-20deg);
+        -o-transform: skew(-20deg);
+    }
+
+
+        .wrap {
+            perspective: 800px;
+            perspective-origin: 50% 100px;
+        }
+        .cube {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            transform-style: preserve-3d;
+            transform: rotateX(45deg) rotateY(45deg);
+        }
+        .cube div {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: rgba(189, 25, 255, 0.3);
+            box-shadow: inset 0 0 20px rgba(125, 125, 125, 0.9);
+        }
+        .front { 
+            transform: translateZ(100px); 
+        }
+        .back { 
+            transform: translateZ(-100px);
+         }
+        .top { 
+            transform: rotateX(90deg) translateZ(-100px);
+         }
+        .bottom { 
+            transform: rotateX(90deg) translateZ(100px);
+         }
+        .left { 
+            transform: rotateY(90deg) translateZ(100px);
+         }
+        .right { 
+            transform: rotateY(90deg) translateZ(-100px);
+         }
+
+        
+</style>
+</head>
+<body>
+    <h1>Test 3D</h1>
+    <div id="parallelogram" style="position:absolute;left:100px;top:100px"></div>
+    
+    <div class="arrow-right" style="position:absolute;left:300px;top:300px"></div>
+    <input type="button" value="left" id="button_left">
+    <input type="button" value="right" id="button_right">
+
+    <div class="wrap"  style="position:absolute;left:600px;top:100px">
+
+        <section class="cube">
+            <div class="front"></div>
+            <div class="back"></div>
+            <div class="top"></div>
+            <div class="bottom"></div>
+            <div class="left"></div>
+            <div class="right"></div>
+        </section>
+    </div>
+
+   <script>
+        var xAngle = 0;
+        var yAngle = 0;
+        var zAngle = 0;
+
+        function rotate(){
+            xAngle += 5;
+            yAngle += 5;
+            zAngle += 5;
+            $("section").css("transform", 'rotateX(' + xAngle + 'deg) rotateY(' + yAngle + 'deg) rotateZ(' + zAngle + 'deg)');
+
+            setTimeout(rotate, 100);
+        }
+
+        $(document).ready(function(){
+            $("#button_left").click(function () {
+                xAngle += 5;
+                yAngle += 5;
+                zAngle += 5;
+                $("section").css("transform", 'rotateX(' + xAngle + 'deg) rotateY(' + yAngle + 'deg) rotateZ(' + zAngle + 'deg)');
+            });
+            $("#button_right").click(function () {
+                xAngle -= 5;
+                yAngle -= 5;
+                zAngle -= 5;
+                $("section").css("transform", 'rotateX(' + xAngle + 'deg) rotateY(' + yAngle + 'deg) rotateZ(' + zAngle + 'deg)');
+            });           
+            
+            setTimeout(rotate , 100);
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+

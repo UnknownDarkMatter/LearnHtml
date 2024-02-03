@@ -1,0 +1,95 @@
+
+### rotation
+Bien sûr ! Pour effectuer une rotation d’un parallélépipède en trois dimensions par rapport à un axe, vous pouvez utiliser des matrices de rotation. Voici comment procéder :
+
+Choisissez l’axe de rotation : Tout d’abord, déterminez l’axe autour duquel vous souhaitez faire pivoter le parallélépipède. Les trois axes possibles sont X, Y et Z.
+Calculez les nouvelles coordonnées : Pour chaque point du parallélépipède, appliquez la formule de rotation appropriée en fonction de l’axe choisi. Voici les formules pour chaque axe :
+Rotation autour de l’axe X :
+Nouvelle coordonnée x’ : (x’ = x)
+Nouvelle coordonnée y’ : (y’ = y \cdot \cos(\theta) - z \cdot \sin(\theta))
+Nouvelle coordonnée z’ : (z’ = y \cdot \sin(\theta) + z \cdot \cos(\theta))
+Rotation autour de l’axe Y :
+Nouvelle coordonnée x’ : (x’ = x \cdot \cos(\theta) + z \cdot \sin(\theta))
+Nouvelle coordonnée y’ : (y’ = y)
+Nouvelle coordonnée z’ : (z’ = -x \cdot \sin(\theta) + z \cdot \cos(\theta))
+Rotation autour de l’axe Z :
+Nouvelle coordonnée x’ : (x’ = x \cdot \cos(\theta) - y \cdot \sin(\theta))
+Nouvelle coordonnée y’ : (y’ = x \cdot \sin(\theta) + y \cdot \cos(\theta))
+Nouvelle coordonnée z’ : (z’ = z)
+Matrices de rotation : Vous pouvez également utiliser des matrices de rotation pour effectuer ces calculs. Par exemple, pour une rotation autour de l’axe Z, la matrice de rotation est : [ \begin{bmatrix} \cos(\theta) & -\sin(\theta) & 0 \ \sin(\theta) & \cos(\theta) & 0 \ 0 & 0 & 1 \end{bmatrix} ] Multipliez cette matrice par les coordonnées du parallélépipède pour obtenir les nouvelles coordonnées.
+Répétez pour tous les points : Appliquez ces formules ou matrices à chaque point du parallélépipède pour obtenir les nouvelles coordonnées après la rotation.
+
+http://www.pierreaudibert.fr/tra/Rotation3D.pdf
+
+
+### coordonnées projetées d’un objet en 3 dimensions sur un plan
+
+Pour calculer les coordonnées projetées d’un objet en 3 dimensions sur un plan, voici les étapes à suivre :
+
+Projeté orthogonal d’un point sur une droite :
+Soit d une droite et M un point du plan.
+Le projeté orthogonal de M sur la droite d est le point H appartenant à d tel que ((\overrightarrow{MH}) \perp \overrightarrow{d}).
+Remarque : Si M appartient déjà à d, alors M et H sont confondus, et la longueur (\overline{MH}) est nulle.
+Propriété : H est le point de d le plus proche de M.
+Démonstration : Si M appartient à d, alors MH est nul. Tout autre point H’ de d, distinct de H, a une longueur (\overline{MH’}) strictement supérieure à (\overline{MH}).
+Si M n’appartient pas à d, pour tout point H’ de d, le triangle MHH’ est rectangle en H, et (\overline{MH’}) est l’hypoténuse, donc (\overline{MH’} > \overline{MH}).
+Projeté orthogonal d’un point sur un plan :
+Soit P un plan et M un point de l’espace.
+Le projeté orthogonal de M sur le plan P est le point H appartenant à P tel que ((\overrightarrow{MH}) \perp \overrightarrow{P}).
+Propriété : H est le point du plan P le plus proche de M.
+Démonstration : Si M appartient déjà à P, alors M et H sont confondus, et la longueur (\overline{MH}) est nulle.
+Tout autre point H’ de P, distinct de H, a une longueur (\overline{MH’}) strictement supérieure à (\overline{MH}).
+Si M n’appartient pas à P, le vecteur (\overrightarrow{MH’}) est orthogonal au plan P, donc à tout vecteur directeur du plan P, 
+en particulier au vecteur normal (\overrightarrow{P}). Le triangle MHH’ est rectangle en H, et (\overline{MH’}) est l’hypoténuse, donc (\overline{MH’} > \overline{MH}).
+
+L’expression (\overrightarrow{P}) représente un vecteur. si (A) et (B) sont deux points dans l’espace, le vecteur (\overrightarrow{AB}) représente le déplacement de (A) à (B)
+
+
+L’expression (\overline{MH}) représente la longueur du segment de droite entre les points M et H. Voici quelques explications supplémentaires :
+
+(M) est un point dans l’espace.
+(H) est le projeté orthogonal de (M) sur une droite ou un plan donné.
+Le segment de droite (\overline{MH}) est la distance entre ces deux points.
+Dans le contexte des projections orthogonales, (\overline{MH}) est la distance entre le point initial (M) et son projeté orthogonal (H).
+
+
+
+##### projection cube sur un plan
+ La projection orthogonale d’un objet en 3 dimensions (comme un cube) sur un plan se fait en suivant ces étapes :
+
+Trouver le vecteur normal au plan :
+Le vecteur normal au plan est perpendiculaire à ce dernier.
+Pour un plan défini par une équation (ax + by + cz + d = 0), le vecteur normal est (\vec{n} = (a, b, c)).
+Calculer le projeté orthogonal de chaque sommet du cube sur le plan :
+Pour chaque sommet du cube, trouvez le projeté orthogonal sur le plan en utilisant la formule : (\vec{H} = \vec{M} - \frac{\vec{n} \cdot \vec{M}}{\vec{n} \cdot \vec{n}} \cdot \vec{n})
+Où :
+(\vec{M}) est le sommet du cube.
+(\vec{H}) est le projeté orthogonal de (\vec{M}) sur le plan.
+(\vec{n}) est le vecteur normal au plan.
+Répétez l’étape 2 pour tous les sommets du cube.
+Les coordonnées des projets orthogonaux :
+Les coordonnées des projets orthogonaux des sommets du cube sur le plan sont les coordonnées des points (\vec{H}).
+
+peux tu m'expliquer ce quesignifient les termes du calcul (\vec{H} = \vec{M} - \frac{\vec{n} \cdot \vec{M}}{\vec{n} \cdot \vec{n}} \cdot \vec{n})
+
+Explorons les termes de cette formule de projection orthogonale :
+
+(\vec{H}) : C’est le projeté orthogonal du point (\vec{M}) sur le plan défini par le vecteur normal (\vec{n}). En d’autres termes, (\vec{H}) est le point du plan le plus proche de (\vec{M}).
+(\vec{M}) : C’est le sommet du cube dont nous voulons projeter les coordonnées sur le plan.
+(\vec{n}) : C’est le vecteur normal au plan. Il est perpendiculaire au plan et définit sa direction. Pour un plan défini par l’équation (ax + by + cz + d = 0), le vecteur normal est (\vec{n} = (a, b, c)).
+(\vec{n} \cdot \vec{M}) : C’est le produit scalaire entre le vecteur normal (\vec{n}) et le vecteur (\vec{M}). Le produit scalaire mesure la projection de (\vec{M}) dans la direction de (\vec{n}).
+(\vec{n} \cdot \vec{n}) : C’est la norme au carré du vecteur normal (\vec{n}). La norme au carré est simplement la somme des carrés de ses composantes.
+(\frac{\vec{n} \cdot \vec{M}}{\vec{n} \cdot \vec{n}}) : C’est le facteur de projection. Il représente la proportion de la projection de (\vec{M}) dans la direction de (\vec{n}) par rapport à la norme au carré de (\vec{n}).
+(\vec{H} = \vec{M} - \frac{\vec{n} \cdot \vec{M}}{\vec{n} \cdot \vec{n}} \cdot \vec{n}) : Cette formule calcule le projeté orthogonal (\vec{H}) en soustrayant la projection de (\vec{M}) dans la direction de (\vec{n}) du vecteur (\vec{M}). Le résultat est le point (\vec{H}) appartenant au plan.
+En utilisant cette formule pour chaque sommet du cube, vous pouvez projeter les coordonnées du cube sur le plan donné. N’hésitez pas à poser d’autres questions si vous avez besoin de plus de détails ! 
+
+
+
+
+
+
+
+
+
+
+
