@@ -85,8 +85,13 @@ En utilisant cette formule pour chaque sommet du cube, vous pouvez projeter les 
 
 
 
+### exemple en html css
+Pour ne pas afficher les faces cachées d’un cube en 3D, vous pouvez utiliser la technique du backface culling. Cette technique consiste à masquer automatiquement les faces du cube qui sont orientées vers l’arrière (c’est-à-dire les faces qui ne sont pas visibles depuis le point de vue de la caméra).
 
+Voici comment l’implémenter dans votre code CSS :
 
+Ajoutez la propriété backface-visibility: hidden; à la classe .cube div. Cela masquera automatiquement les faces orientées vers l’arrière.
+Assurez-vous que votre cube est correctement positionné et que la caméra est placée de manière à voir les faces avant.
 
 
 
