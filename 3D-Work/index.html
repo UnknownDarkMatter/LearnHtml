@@ -1,10 +1,13 @@
 <html>
 <head>
-<script type="text/javascript" src="jquery-3.7.1.min.js" ></script>
+<script type="text/javascript" src="jquery-3.7.1.min.js"></script>
+<script type="text/javascript" src="3d-engine.js"></script>
 <style>
     body{
         margin: 0;
         padding: 0;
+        height: 100%;
+        width: 100%;
     }
 
     #parallelogram {
@@ -28,7 +31,9 @@
         -o-transform: skew(-20deg);
     }
 
-
+/***********************************************************************/
+/******                  css cube en rotation                    *******/
+/***********************************************************************/
         .wrap {
             perspective: 800px;
             perspective-origin: 50% 100px;
@@ -70,14 +75,91 @@
         
 </style>
 </head>
-<body>
+<body onmousemove="MouseCoordinates(event)">
     <h1>Test 3D</h1>
+    Mouse X:<span id="mouse-x"></span>,Mouse Y:<span id="mouse-y"></span>
+    <br/>
+    <!----------------------------------------------------------------------------------->
+    <!-------                   html dessiner triangle                             ------>
+    <!----------------------------------------------------------------------------------->
+    <div>
+        <span>Créer triangle</span>
+        <table>
+            <tr>
+                <td>
+                    X Point 1
+                </td>
+                <td>
+                    <input type="text" id="triangle-1-x" value="300"/>
+                    <input type="button" id="triangle-1-x-increase" value="+" />
+                    <input type="button" id="triangle-1-x-decrease" value="-" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Y Point 1
+                </td>
+                <td>
+                    <input type="text" id="triangle-1-y" value="380" />
+                    <input type="button" id="triangle-1-y-increase" value="+" />
+                    <input type="button" id="triangle-1-y-decrease" value="-" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    X Point 2
+                </td>
+                <td>
+                    <input type="text" id="triangle-2-x" value="320" />
+                    <input type="button" id="triangle-2-x-increase" value="+" />
+                    <input type="button" id="triangle-2-x-decrease" value="-" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Y Point 2
+                </td>
+                <td>
+                    <input type="text" id="triangle-2-y" value="300" />
+                    <input type="button" id="triangle-2-y-increase" value="+" />
+                    <input type="button" id="triangle-2-y-decrease" value="-" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    X Point 3
+                </td>
+                <td>
+                    <input type="text" id="triangle-3-x" value="370" />
+                    <input type="button" id="triangle-3-x-increase" value="+" />
+                    <input type="button" id="triangle-3-x-decrease" value="-" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Y Point 3
+                </td>
+                <td>
+                    <input type="text" id="triangle-3-y" value="380" />
+                    <input type="button" id="triangle-3-y-increase" value="+" />
+                    <input type="button" id="triangle-3-y-decrease" value="-" />
+                </td>
+            </tr>
+        </table>
+        <button id="triangle-draw">Dessiner triangle</button>
+    </div>
+    <br/>
+    <!--
     <div id="parallelogram" style="position:absolute;left:100px;top:100px"></div>
     
     <div class="arrow-right" style="position:absolute;left:300px;top:300px"></div>
     <input type="button" value="left" id="button_left">
     <input type="button" value="right" id="button_right">
+    -->
 
+    <!----------------------------------------------------------------------------------->
+    <!-------                    html cube en rotation                             ------>
+    <!----------------------------------------------------------------------------------->
     <div class="wrap"  style="position:absolute;left:600px;top:100px">
 
         <section class="cube">
@@ -91,6 +173,29 @@
     </div>
 
    <script>
+   function MouseCoordinates(event) {
+            let x = event.clientX;
+            let y = event.clientY;
+            document.getElementById("mouse-x").innerHTML = x;
+            document.getElementById("mouse-y").innerHTML = y;
+    }
+    //////////////////////////////////////////////////////////////////////////////////////////
+    //        script dessiner triangle
+    //////////////////////////////////////////////////////////////////////////////////////////
+    $(document).ready(function(){
+        $('#triangle-draw').click(function(){
+            var point1 = new Point($('#triangle-1-x').val(), $('#triangle-1-y').val());
+            var point2 = new Point($('#triangle-2-x').val(), $('#triangle-2-y').val());
+            var point3 = new Point($('#triangle-3-x').val(), $('#triangle-3-y').val());
+            var triangle = new Triangle(point1, point2, point3);
+            triangle.draw();
+        });
+
+    });
+
+    //////////////////////////////////////////////////////////////////////////////////////////
+    //        script cube en rotation
+    //////////////////////////////////////////////////////////////////////////////////////////
         var xAngle = 0;
         var yAngle = 0;
         var zAngle = 0;
