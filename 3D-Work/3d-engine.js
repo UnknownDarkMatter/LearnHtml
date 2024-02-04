@@ -50,13 +50,13 @@ class Utils{
     static centreTriangle(p1, p2, p3, angleDeg){
         var angleRad = angleDeg / (180 / Math.PI);
         //droite p1 - p3
-        var a = (p3.y - p1.y)/(p3.x - p1.x);
-        var b = p3.y - a*p3.x;
+        var a = (p1.y - p3.y)/(p1.x - p3.x);
+        var b = p1.y - a*p1.x;
         //distance p2 à la droite p1-p3
         var d = Math.abs(p2.y - a * p2.x - b)/Math.sqrt(1 + (a*a));
 
         var xmin = p1.x;
-        var xmax = p3.x + d * Math.tan(angleRad);
+        var xmax = p3.x + d * Math.sin(angleRad);
 
         var x = xmin + (xmax - xmin) / 2;
         var y = 0;
