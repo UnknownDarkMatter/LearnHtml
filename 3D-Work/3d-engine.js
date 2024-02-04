@@ -25,6 +25,10 @@ class Triangle {
     var centreRotation = Utils.centreTriangle(point1, point2, point3, angleRotation);
     console.log('centre rotation x=' + centreRotation.x + ',y=' + centreRotation.y);
 
+    point1 = Utils.inverseRotation(point1, -angleRotation, centreRotation);
+    point2 = Utils.inverseRotation(point2, -angleRotation, centreRotation);
+    point3 = Utils.inverseRotation(point3, -angleRotation, centreRotation);
+
     var top = point2.y;
     var left = point1.x;
     var borderBottom = point1.y - top;
@@ -37,7 +41,7 @@ class Triangle {
     html+='border-style: solid;';
     html+='border-width: ' + borderTop + 'px ' + borderRight + 'px ' + borderBottom + 'px ' + borderLeft + 'px;';
     html+='border-color: transparent green ' + this.color + ' red;';
-    html+='transform: rotate(' + angleRotation + 'deg);';
+    html+='transform: rotate(' + Math.round(angleRotation) + 'deg);';
     html+='';
     html+='"></div>';
     var newHtmlElement = $(html);
@@ -58,8 +62,11 @@ class Utils{
         var xmin = p1.x;
         var xmax = p3.x + d * Math.sin(angleRad);
 
-        var x = xmin + (xmax - xmin) / 2;
-        var y = 0;
+        var ymax = p1.y;
+        var ymin = p3.y - d * Math.cos(angleRad);
+
+        var x = Math.round(xmin + (xmax - xmin) / 2);
+        var y = Math.round(ymin + (ymax - ymin) / 2);
         return new Point(x, y);
     }
 
@@ -68,7 +75,6 @@ class Utils{
         + ((point3.x - point1.x) * (point3.x - point1.x)));
         var coteAdjacent = Math.abs(point3.x - point1.x);
         var angle = Math.acos(coteAdjacent/hypothesuse) * (180 / Math.PI);
-        angle = Math.round(angle);
         if(point1.y > point3.y){
             angle = -angle;
         }
@@ -77,8 +83,8 @@ class Utils{
 
     static inverseRotation(p, a, c){
         //rotation pour un point P(xp, yp) autour d’un centre C(xc, yc) d’un angle a
-        var xp = xc + (xp - xc) * Math.cos(a/(180 / Math.PI)) - (yp - yc) * Math.sin(a/(180 / Math.PI));
-        var yp = yc + (xp - xc) * Math.sin(a/(180 / Math.PI)) + (yp - yc) * Math.cos(a/(180 / Math.PI));
+        var xp = c.x + (p.x - c.x) * Math.cos(a/(180 / Math.PI)) - (p.y - c.y) * Math.sin(a/(180 / Math.PI));
+        var yp = c.y + (p.x - c.x) * Math.sin(a/(180 / Math.PI)) + (p.y - c.y) * Math.cos(a/(180 / Math.PI));
         return new Point(xp, yp);
     }
 
