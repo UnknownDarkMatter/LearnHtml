@@ -145,6 +145,14 @@
                     <input type="button" id="triangle-3-y-decrease" value="-" />
                 </td>
             </tr>
+            <tr>
+                <td>
+                    Color
+                </td>
+                <td>
+                    <input type="text" id="triangle-color" value="#61ff096e" />
+                </td>
+            </tr>
         </table>
         <button id="triangle-draw">Dessiner triangle</button>
     </div>
@@ -184,10 +192,10 @@
     //////////////////////////////////////////////////////////////////////////////////////////
     $(document).ready(function(){
         $('#triangle-draw').click(function(){
-            var point1 = new Point($('#triangle-1-x').val(), $('#triangle-1-y').val());
-            var point2 = new Point($('#triangle-2-x').val(), $('#triangle-2-y').val());
-            var point3 = new Point($('#triangle-3-x').val(), $('#triangle-3-y').val());
-            var triangle = new Triangle(point1, point2, point3);
+            var point1 = new Point(eval($('#triangle-1-x').val()), eval($('#triangle-1-y').val()));
+            var point2 = new Point(eval($('#triangle-2-x').val()), eval($('#triangle-2-y').val()));
+            var point3 = new Point(eval($('#triangle-3-x').val()), eval($('#triangle-3-y').val()));
+            var triangle = new Triangle(point1, point2, point3, $('#triangle-color').val());
             triangle.draw();
         });
 

@@ -1,4 +1,5 @@
 
+
 class Point{
     constructor(x, y){
         this.x = x;
@@ -7,26 +8,36 @@ class Point{
 }
 
 class Triangle {
-  constructor(point1, point2, point3) {
+  constructor(point1, point2, point3, color) {
     this.point1 = point1;
     this.point2 = point2;
     this.point3 = point3;
+    this.color = color;
   }
 
   draw(){
-    var top = $('#triangle-2-y').val();
-    var left = $('#triangle-1-x').val();
-    var borderBottom = $('#triangle-1-y').val() - top;
-    var borderLeft = $('#triangle-2-x').val() - left;
-    var borderRight = $('#triangle-3-x').val() - $('#triangle-2-x').val();
+    var angleRotation = Utils.angleRotation(this.point1, this.point3);
+    console.log('angle rotation :' + angleRotation);
+    var point1 = new Point(this.point1.x, this.point1.y);
+    var point2 = new Point(this.point2.x, this.point2.y);
+    var point3 = new Point(this.point3.x, this.point3.y);
+
+    var centreRotation = Utils.centreTriangle(point1, point2, point3, angleRotation);
+    console.log('centre rotation x=' + centreRotation.x + ',y=' + centreRotation.y);
+
+    var top = point2.y;
+    var left = point1.x;
+    var borderBottom = point1.y - top;
+    var borderLeft = point2.x - left;
+    var borderRight = point3.x - point2.x;
     var borderTop = 0;
 
     var html = '<div style="position:absolute;left:' + left + 'px;top:' + top + 'px;';
     html+='height:0px;width:0px;';
     html+='border-style: solid;';
     html+='border-width: ' + borderTop + 'px ' + borderRight + 'px ' + borderBottom + 'px ' + borderLeft + 'px;';
-    html+='border-color: blue green gold red;';
-    html+='transform: rotate(0deg);';
+    html+='border-color: transparent green ' + this.color + ' red;';
+    html+='transform: rotate(' + angleRotation + 'deg);';
     html+='';
     html+='"></div>';
     var newHtmlElement = $(html);
@@ -35,4 +46,40 @@ class Triangle {
   }
 }
 
+class Utils{
+    static centreTriangle(p1, p2, p3, angleDeg){
+        var angleRad = angleDeg / (180 / Math.PI);
+        //droite p1 - p3
+        var a = (p3.y - p1.y)/(p3.x - p1.x);
+        var b = p3.y - a*p3.x;
+        //distance p2 à la droite p1-p3
+        var d = Math.abs(p2.y - a * p2.x - b)/Math.sqrt(1 + (a*a));
 
+        var xmin = p1.x;
+        var xmax = p3.x + d * Math.tan(angleRad);
+
+        var x = xmin + (xmax - xmin) / 2;
+        var y = 0;
+        return new Point(x, y);
+    }
+
+    static angleRotation(point1, point3){
+        var hypothesuse = Math.sqrt(((point3.y - point1.y) * (point3.y - point1.y)) 
+        + ((point3.x - point1.x) * (point3.x - point1.x)));
+        var coteAdjacent = Math.abs(point3.x - point1.x);
+        var angle = Math.acos(coteAdjacent/hypothesuse) * (180 / Math.PI);
+        angle = Math.round(angle);
+        if(point1.y > point3.y){
+            angle = -angle;
+        }
+        return angle;
+    }
+
+    static inverseRotation(p, a, c){
+        //rotation pour un point P(xp, yp) autour d’un centre C(xc, yc) d’un angle a
+        var xp = xc + (xp - xc) * Math.cos(a/(180 / Math.PI)) - (yp - yc) * Math.sin(a/(180 / Math.PI));
+        var yp = yc + (xp - xc) * Math.sin(a/(180 / Math.PI)) + (yp - yc) * Math.cos(a/(180 / Math.PI));
+        return new Point(xp, yp);
+    }
+
+}
